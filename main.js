@@ -21,7 +21,7 @@ fs.readFile(path.join(__dirname, config.facts), "utf8", function (err, data) {
         console.warn("No facts found.");
         return;
     }
-    var chat = new HackChat.Session(config.channel, "BananaBot");
+    var chat = new HackChat.Session(config.channel, "MangoBot");
     chat.on("joining", function () {
         setInterval(function () {
             var fact = Math.floor(Math.random() * facts.length);

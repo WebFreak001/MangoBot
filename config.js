@@ -1,4 +1,4 @@
 module.exports = {
-	channel: "banana",
+	channel: "mango",
 	facts: "facts.txt"
 };

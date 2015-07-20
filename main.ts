@@ -29,7 +29,7 @@ fs.readFile(path.join(__dirname, config.facts), "utf8", function(err, data) {
         return;
     }
 
-    var chat = new HackChat.Session(config.channel, "BananaBot"); // join channel and send facts every 3 minutes when joining
+    var chat = new HackChat.Session(config.channel, "MangoBot"); // join channel and send facts every 3 minutes when joining
     chat.on("joining", function() {
         setInterval(function() {
             var fact = Math.floor(Math.random() * facts.length);
