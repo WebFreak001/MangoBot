@@ -5,6 +5,7 @@ Fresh mango season lasts from April until August
 The mango flesh is called mesocarp
 Mangos are an excellent source of Vitamin-A and flavonoids like beta-carotene, alpha-carotene, and beta-cryptoxanithin
 Mango has been found to protect against colon, breast, leukemia and prostate cancers
+I'm open source over at https://github.com/WebFreak001/MangoBot
 
 # Sources:
 # http://www.nutrition-and-you.com/mango-fruit.html
