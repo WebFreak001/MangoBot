@@ -8,9 +8,12 @@ var config = require("./config");
 
 var facts = [];
 
+var questionRegex = /(?:tell\s+me|what\s*.?\s*s)\s+Fact\s+(?:#|number|no|n)?\s*(\d+)/i;
+
 // Reads facts out of specified facts file in config.js
 fs.readFile(path.join(__dirname, config.facts), "utf8", function(err, data) {
-    if (err) throw err;
+    if (err)
+        throw err;
 
     var lines = data.split("\n");
 
@@ -24,12 +27,31 @@ fs.readFile(path.join(__dirname, config.facts), "utf8", function(err, data) {
         facts.push(line);
     }
 
-    if (facts.length == 0) {
-        console.warn("No facts found.");
-        return;
-    }
+    if (facts.length == 0)
+        return console.warn("No facts found.");
+
+    var lastMessage = new Date().getTime();
 
     var chat = new HackChat.Session(config.channel, "MangoBot"); // join channel and send facts every 3 minutes when joining
+
+    function saveSend(message) {
+        if (lastMessage - new Date().getTime() < -2500) {
+            lastMessage = new Date().getTime();
+            chat.sendMessage(message);
+        }
+    }
+
+    chat.on("chat", function(nick, text) {
+        if (text == "!help" || text == "/help")
+            return saveSend("Either kindly ask me for a fact number or wait 3 minutes to get a free fact. Random facts every 3 minutes!");
+
+        var result = questionRegex.exec(text);
+        if (result && result.length == 2) {
+            var n = parseInt(result[1]) - 1;
+            if (n >= 0 && n < facts.length)
+                saveSend("Fact #" + (n + 1) + ": " + facts[n]);
+        }
+    });
     chat.on("joining", function() {
         setInterval(function() {
             var fact = Math.floor(Math.random() * facts.length);
